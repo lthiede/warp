@@ -18,11 +18,18 @@
 package main
 
 import (
+	"log"
+	"net/http"
+	_ "net/http/pprof"
 	"os"
 
 	"github.com/minio/warp/cli"
 )
 
 func main() {
+	go func() {
+		log.Println(http.ListenAndServe("localhost:6060", nil))
+	}()
+
 	cli.Main(os.Args)
 }
